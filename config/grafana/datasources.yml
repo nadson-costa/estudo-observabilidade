@@ -4,7 +4,7 @@ datasources:
   - name: loki
     type: Loki
     access: proxy
-    url: http://31.97.23.215:3100
+    url: http://31.97.23.215:3003
     isDefault: false
     editable: false
     version: 1
