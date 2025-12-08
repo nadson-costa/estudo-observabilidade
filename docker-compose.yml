@@ -5,4 +5,4 @@ services:
     container_name: grafana
     restart: always
     ports:
-      - 3000:3002
+      - 3002:3002
