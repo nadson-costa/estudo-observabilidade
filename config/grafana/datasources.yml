@@ -25,7 +25,7 @@ datasources:
     access: proxy
     url: http://mimir:9090/prometheus
     basicAuth: false
-    isDefault: true
+    isDefault: false
     editable: false
     version: 1
     uuid: mimir
