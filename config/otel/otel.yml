@@ -5,6 +5,7 @@ receivers:
         endpoint: 0.0.0.0:4317
       http:
         endpoint: 0.0.0.0:4318
+  
   prometheus: 
     config:
       scrape_configs:
@@ -15,31 +16,26 @@ receivers:
 
 processors:
   batch:
+  
   resource:
     attributes:
       - action: insert
-        key: loki.resource, labels
-        value: service.name, service.environment
+        key: service.environment
+        value: production
 
 exporters:
   otlphttp/loki:
-    endpoint: http://loki:3100/otlp/v1/logs
+    endpoint: http://loki:3100/otlp
     tls:
       insecure: true
 
   otlp/tempo:
-    endpoint: tempo:3200
-    tls:
-      insecure: true
-
-  otlphttp/metrics:
-    otlp/tempo:
-    endpoint: http://mimir:9009/otlp/v1/metrics
+    endpoint: tempo:4317
     tls:
       insecure: true
 
   prometheusremotewrite:
-    endpoint: http://mimir:9090/api/v1/metrics
+    endpoint: http://mimir:9090/api/v1/push
     tls:
       insecure: true
 
@@ -55,13 +51,13 @@ service:
       receivers: [otlp]
       processors: [resource, batch]
       exporters: [otlphttp/loki]
+    
     traces:
       receivers: [otlp]
       processors: [resource, batch]
       exporters: [otlp/tempo]
+    
     metrics:
-      traces:
-      receivers: [otlp]
+      receivers: [otlp, prometheus]
       processors: [resource, batch]
       exporters: [prometheusremotewrite]
-
