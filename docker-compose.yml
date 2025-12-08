@@ -44,6 +44,7 @@ services:
 
     depends_on:
       - loki
+      - prometheus
       - tempo
       - mimir
 
@@ -55,11 +56,16 @@ services:
       - 4317:4317
       - 4318:4318
       - 8888:8888
-    command: ["--config.file=/etc/otelcol/config.yml"]
+      - 8889:8889
+      - 1888:1888
+      - 13133:13133 
+      - 55679:55679
+    command: ["--config=/etc/otelcol/config.yaml"]
     volumes:
-      - ./config/otel/otel.yml:/etc/otelcol/config.yml
+      - ./config/otel/otel.yaml:/etc/otelcol/config.yaml
     depends_on:
       - loki
+      - prometheus
       - tempo
       - mimir
       - grafana
