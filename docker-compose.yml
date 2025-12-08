@@ -7,6 +7,15 @@ services:
     ports:
       - 3003:3100
 
+    tempo:
+      image: grafana/tempo:latest
+      container_name: tempo
+      restart: always
+      command: ["-config.file=/etc/tempo.yml"]
+      volumes:
+        - ./config/tempo/tempo.yml:/etc/tempo.yml
+
+
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
