@@ -59,9 +59,9 @@ services:
       - 1888:1888
       - 13133:13133 
       - 55679:55679
-    command: ["--config=/etc/otelcol/config.yaml"]
+    command: ["--config=/etc/otelcol/config.yml"]
     volumes:
-      - ./config/otel/otel.yaml:/etc/otelcol/config.yaml
+      - ./config/otel/otel.yml:/etc/otelcol/config.yml
     depends_on:
       - loki
       - tempo
