@@ -16,12 +16,11 @@ receivers:
 
 processors:
   batch:
-  
   resource:
     attributes:
       - action: insert
-        key: service.environment
-        value: production
+        key: loki.resource, labels
+        value: service.name, service.environment, service.version
 
 exporters:
   otlphttp/loki:
